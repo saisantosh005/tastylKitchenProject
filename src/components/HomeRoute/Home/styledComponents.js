@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
 const HomeMainContainer = styled.div`
@@ -8,6 +9,9 @@ const HomeMainContainer = styled.div`
 `
 
 const DetailsAndListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   padding: 24px 32px;
   border: 2px solid red;
@@ -44,10 +48,27 @@ const Description = styled.p`
     line-height: 24px;
   }
 `
+
+const CardListContainer = styled.div`
+  margin: 24px;
+
+  border: 2px solid red;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 70%;
+  }
+`
+
+const CardLink = styled(Link)`
+  text-decoration: none;
+`
 export {
   HomeMainContainer,
   DetailsAndListContainer,
   DetailsContainer,
+  CardListContainer,
   Description,
   Heading,
+  CardLink,
 }

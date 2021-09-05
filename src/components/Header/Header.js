@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+
 import {AiFillCloseCircle} from 'react-icons/ai'
 
 import {

@@ -14,13 +14,13 @@ const Pagination = props => {
 
   return (
     <PaginationContainer>
-      <Button type="button" onClick={onIncreaseCount}>
+      <Button type="button" onClick={onDecreaseCount}>
         <IoIosArrowBack />
       </Button>
       <Text>
         {count} of {total}
       </Text>
-      <Button type="button" onClick={onDecreaseCount}>
+      <Button type="button" onClick={onIncreaseCount}>
         <IoIosArrowForward />
       </Button>
     </PaginationContainer>
