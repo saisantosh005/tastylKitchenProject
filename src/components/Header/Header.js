@@ -18,6 +18,7 @@ import Logo from '../Logo/Logo'
 class Header extends Component {
   state = {
     showNavIconSection: false,
+    offers: [],
   }
 
   logout = () => {
