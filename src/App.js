@@ -10,14 +10,10 @@ const App = () => (
   <div>
     <BrowserRouter>
       <Switch>
-        <Route to="/login" component={LoginRoute} />
-        <ProtectedRoute to="/home" component={Home} />
-        <ProtectedRoute to="/home" component={Home} />
-        <ProtectedRoute to="/home" component={Home} />
-        <ProtectedRoute to="/home" component={Home} />
-        <ProtectedRoute to="/home" component={Home} />
-        <Route to="/not-found" component={NotFound} />
-        <Redirect to="/not-found" />>
+        <Route exact path="/login" component={LoginRoute} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/not-found" component={NotFound} />
+        <Redirect to="/not-found" />
       </Switch>
     </BrowserRouter>
   </div>

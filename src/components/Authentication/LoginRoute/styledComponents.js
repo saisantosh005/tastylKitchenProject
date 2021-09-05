@@ -10,22 +10,27 @@ const LoginRouteMainContainer = styled.div`
   }
 `
 const LoginFormSection = styled.div`
-  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
 `
 const LoginFormMainContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  width: 100%;
   border-radius: 8px;
-  padding: 48px;
+  padding: 24px;
+
   @media screen and (min-width: 768px) {
     width: 456px;
     height: 523px;
     box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
+    padding: 48px;
   }
 `
 
@@ -36,12 +41,17 @@ const LogoAndHeadingContainer = styled.div`
 `
 
 const Heading = styled.h1`
+  align-self: flex-start;
   color: #0f172a;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
   line-height: 40px;
+
+  @media screen and (min-width: 768px) {
+    align-self: center;
+  }
 `
 const FormPart = styled.div``
 const LabelAndInputContainer = styled.div`
@@ -91,16 +101,12 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 14px;
   line-height: 24px;
-  max-width: 360px;
+  width: 100%;
   height: 40px;
   background: #f7931e;
   border-radius: 8px;
   border: none;
   outline: none;
-  @media screen and (min-width: 658px) {
-    max-width: 312px;
-    height: 40px;
-  }
 `
 
 const Image = styled.img`

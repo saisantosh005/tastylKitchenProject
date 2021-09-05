@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Cookies} from 'js-cookie'
+import Cookies from 'js-cookie'
 
 import {
   LoginRouteMainContainer,
@@ -15,7 +15,7 @@ import {
   FormPart,
 } from './styledComponents'
 
-const loginUrl = ''
+const loginUrl = 'https://apis.ccbp.in/login'
 
 class LoginRoute extends Component {
   state = {
@@ -36,12 +36,19 @@ class LoginRoute extends Component {
   }
 
   onSubmit = async event => {
+    const {username, password} = this.state
+    const {history} = this.props
     event.preventDefault()
-    const response = await fetch(loginUrl)
+    const details = {username, password}
+
+    const options = {method: 'POST', body: JSON.stringify(details)}
+
+    const response = await fetch(loginUrl, options)
 
     if (response.ok) {
       const responseData = await response.json()
-      Cookies.set('jwtToken', response.responseData)
+      Cookies.set('jwtToken', responseData.jwt_token, {expires: 30})
+      history.replace('/')
     }
   }
 
