@@ -45,7 +45,10 @@ class Header extends Component {
       <HeaderMainContainer>
         <HeaderPart>
           <LogoContainer>
-            <Logo />
+            <Logo
+              color="#f7931e"
+              imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"
+            />
           </LogoContainer>
           <NavContainer>
             <NavItem selected={home}>Home</NavItem>
