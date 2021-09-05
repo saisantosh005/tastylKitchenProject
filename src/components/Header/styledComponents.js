@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import {AiOutlineMenu} from 'react-icons/ai'
 
-const HeaderMainContainer = styled.div``
+const HeaderMainContainer = styled.div`
+  background: #f8fafc;
+`
 const HeaderPart = styled.div`
   display: flex;
   justify-content: space-between;
