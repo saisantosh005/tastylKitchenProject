@@ -62,7 +62,6 @@ class Home extends Component {
     }
     const response = await fetch(url, options)
     const responseData = await response.json()
-    console.log(responseData)
     this.setState({
       restaurantsList: responseData.restaurants.map(eachItem => ({
         id: eachItem.id,
@@ -77,7 +76,6 @@ class Home extends Component {
   }
 
   increasePageCount = () => {
-    console.log('yes')
     const {offsetCount, total} = this.state
     if (offsetCount < total) {
       this.setState(
@@ -90,7 +88,6 @@ class Home extends Component {
   }
 
   decreasePageCount = () => {
-    console.log('ys')
     const {offsetCount} = this.state
     if (offsetCount > 1) {
       this.setState(

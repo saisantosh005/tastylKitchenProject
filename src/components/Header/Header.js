@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import {withRouter} from 'react-router-dom'
 
 import {AiFillCloseCircle} from 'react-icons/ai'
 
@@ -53,8 +54,12 @@ class Header extends Component {
             />
           </LogoContainer>
           <NavContainer>
-            <NavItem selected={home}>Home</NavItem>
-            <NavItem selected={cart}>Cart</NavItem>
+            <NavItem to="/" selected={home}>
+              Home
+            </NavItem>
+            <NavItem to="/cart" selected={cart}>
+              Cart
+            </NavItem>
             <Button type="button" onClick={this.logout}>
               Logout
             </Button>
@@ -64,8 +69,15 @@ class Header extends Component {
         {showNavIconSection && (
           <NavContainerTwo>
             <IconContainerTwo>
-              <NavItem selected={home}>Home</NavItem>
-              <NavItem selected={cart}>Cart</NavItem>
+              <NavItem to="/" selected={home}>
+                Home
+              </NavItem>
+              <NavItem to="/cart" selected={cart}>
+                Cart
+              </NavItem>
+              <Button type="button" onClick={this.logout}>
+                Logout
+              </Button>
             </IconContainerTwo>
             <AiFillCloseCircle onClick={this.closeIconContainer} />
           </NavContainerTwo>
@@ -75,4 +87,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default withRouter(Header)

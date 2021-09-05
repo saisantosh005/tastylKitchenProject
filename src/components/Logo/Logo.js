@@ -4,8 +4,10 @@ const Logo = props => {
   const {color, login, imgUrl} = props
   return (
     <LogosMainContainer login={login}>
-      <LogoImage color={color} src={imgUrl} />
-      <LogoName color={color}>Tasty Kitchens</LogoName>
+      <LogoImage login={login} src={imgUrl} />
+      <LogoName login={login} color={color}>
+        Tasty Kitchens
+      </LogoName>
     </LogosMainContainer>
   )
 }

@@ -3,6 +3,17 @@ import styled from 'styled-components'
 const CardMaiContainer = styled.div`
   display: flex;
   margin-bottom: 24px;
+  //   flex-grow: 1;
+
+  //   min-width: 330px;
+  //   max-width: 380px;
+  //   width: 100%;
+
+  //   border: 2px solid red;
+  @media screen and (min-width: 768px) {
+    margin-right: 20px;
+    width: 380px;
+  }
 `
 
 const ImageContainer = styled.div`
@@ -20,6 +31,8 @@ const Image = styled.img`
 const DetailsContainers = styled.div``
 
 const CardName = styled.p`
+  display: flex;
+  flex-wrap: wrap;
   color: #334155;
   font-family: 'DM Sans';
   font-style: normal;

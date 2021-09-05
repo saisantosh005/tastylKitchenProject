@@ -58,7 +58,11 @@ class LoginRoute extends Component {
       <LoginFormMainContainer onSubmit={this.onSubmit}>
         <LogoAndHeadingContainer>
           <LogoContainer>
-            <Logo login />
+            <Logo
+              login
+              color="#F7931E"
+              imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"
+            />
           </LogoContainer>
           <Heading>Sign in</Heading>
         </LogoAndHeadingContainer>

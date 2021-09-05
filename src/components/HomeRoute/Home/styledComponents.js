@@ -12,15 +12,17 @@ const DetailsAndListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   padding: 24px 32px;
   border: 2px solid red;
   @media screen and (min-width: 768px) {
     padding: 165px 96px;
-    // width: 70%;
   }
 `
-const DetailsContainer = styled.div``
+const DetailsContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    width: 80%;
+  }
+`
 const Heading = styled.h1`
   color: #183b56;
   font-family: 'DM Sans';
@@ -30,7 +32,7 @@ const Heading = styled.h1`
   line-height: 32px;
   margin: 0px;
 
-  @media screen and(min-width) {
+  @media screen and(min-width:768px) {
     font-size: 32px;
     line-height: 48px;
   }
@@ -50,13 +52,13 @@ const Description = styled.p`
 `
 
 const CardListContainer = styled.div`
-  margin: 24px;
-
-  border: 2px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid green;
   @media screen and (min-width: 768px) {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 70%;
+    width: 80%;
   }
 `
 

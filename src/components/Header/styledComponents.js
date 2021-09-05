@@ -72,7 +72,9 @@ const NavContainerTwo = styled.div`
   }
 `
 
-const IconContainerTwo = styled.div``
+const IconContainerTwo = styled.div`
+  display: flex;
+`
 export {
   HeaderMainContainer,
   HeaderPart,
