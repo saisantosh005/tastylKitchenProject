@@ -119,6 +119,14 @@ const Image = styled.img`
   }
 `
 
+const LogoContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
+`
+
 export {
   LoginRouteMainContainer,
   LoginFormSection,
@@ -131,4 +139,5 @@ export {
   Label,
   Input,
   Button,
+  LogoContainer,
 }
