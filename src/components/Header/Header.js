@@ -1,5 +1,6 @@
+import {Component} from 'react'
 import Cookies from 'js-cookie'
-import {AiOutlineMenu} from 'react-icons/ai'
+import {AiFillCloseCircle} from 'react-icons/ai'
 
 import {
   HeaderMainContainer,
@@ -10,37 +11,63 @@ import {
   Button,
   MenuIconContainer,
   NavContainerTwo,
+  IconContainerTwo,
 } from './styledComponents'
 import Logo from '../Logo/Logo'
 
-const Header = props => {
-  const {history, home, cart} = props
-  const logout = () => {
+class Header extends Component {
+  state = {
+    showNavIconSection: false,
+  }
+
+  logout = () => {
+    const {history, home, cart} = this.props
     Cookies.remove('jwtToken')
     history.replace('/')
   }
 
-  return (
-    <HeaderMainContainer>
-      <HeaderPart>
-        <LogoContainer>
-          <Logo />
-        </LogoContainer>
-        <NavContainer>
-          <NavItem selected={home}>Home</NavItem>
-          <NavItem selected={cart}>Cart</NavItem>
-          <Button type="button" onClick={logout}>
-            Logout
-          </Button>
-        </NavContainer>
-        <MenuIconContainer />
-      </HeaderPart>
-      <NavContainerTwo>
-        <NavItem selected={home}>Home</NavItem>
-        <NavItem selected={cart}>Cart</NavItem>
-      </NavContainerTwo>
-    </HeaderMainContainer>
-  )
+  onClickMenu = () => {
+    this.setState(prevState => ({
+      showNavIconSection: !prevState.showNavIconSection,
+    }))
+  }
+
+  closeIconContainer = () => {
+    this.setState({
+      showNavIconSection: false,
+    })
+  }
+
+  render() {
+    const {home, cart} = this.props
+    const {showNavIconSection} = this.state
+    return (
+      <HeaderMainContainer>
+        <HeaderPart>
+          <LogoContainer>
+            <Logo />
+          </LogoContainer>
+          <NavContainer>
+            <NavItem selected={home}>Home</NavItem>
+            <NavItem selected={cart}>Cart</NavItem>
+            <Button type="button" onClick={this.logout}>
+              Logout
+            </Button>
+          </NavContainer>
+          <MenuIconContainer onClick={this.onClickMenu} />
+        </HeaderPart>
+        {showNavIconSection && (
+          <NavContainerTwo>
+            <IconContainerTwo>
+              <NavItem selected={home}>Home</NavItem>
+              <NavItem selected={cart}>Cart</NavItem>
+            </IconContainerTwo>
+            <AiFillCloseCircle onClick={this.closeIconContainer} />
+          </NavContainerTwo>
+        )}
+      </HeaderMainContainer>
+    )
+  }
 }
 
 export default Header

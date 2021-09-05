@@ -5,12 +5,18 @@ import {AiOutlineMenu} from 'react-icons/ai'
 const HeaderMainContainer = styled.div``
 const HeaderPart = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 96px;
+  height: 64px;
+
+  padding: 0px 26px;
   @media screen and (min-width: 768px) {
     flex-direction: row;
+    justify-content: space-around;
+    height: 96px;
+
+    padding: 0px;
   }
 `
 const LogoContainer = styled.div``
@@ -55,11 +61,16 @@ const MenuIconContainer = styled(AiOutlineMenu)`
   }
 `
 const NavContainerTwo = styled.div`
-  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 26px;
   @media screen and (min-width: 768px) {
     display: none;
   }
 `
+
+const IconContainerTwo = styled.div``
 export {
   HeaderMainContainer,
   HeaderPart,
@@ -69,4 +80,5 @@ export {
   LogoContainer,
   MenuIconContainer,
   NavContainerTwo,
+  IconContainerTwo,
 }
