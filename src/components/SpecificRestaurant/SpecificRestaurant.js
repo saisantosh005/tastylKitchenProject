@@ -10,8 +10,15 @@ import {
   SpecificRouteMainContainer,
   BannerPart,
   CardListContainer,
-  CardLink,
   DetailsAndListContainer,
+  CardMaiContainer,
+  Image,
+  DetailsContainers,
+  CardName,
+  PriceText,
+  RatingContainer,
+  Icon,
+  RatingText,
 } from './styledComponents'
 
 class SpecificRoute extends Component {
@@ -70,20 +77,48 @@ class SpecificRoute extends Component {
   renderCardList = () => {
     const {itemsList} = this.state
     return itemsList.map(eachItem => (
-      <CardLink to={`/restaurant/${eachItem.id}`} key={uuidv4()}>
-        <Card details={eachItem} />
-      </CardLink>
+      <Card details={eachItem} button key={uuidv4()} />
     ))
+  }
+
+  renderBanner = () => {
+    const {details} = this.state
+    const {
+      url,
+      cuisine,
+      price,
+      name,
+      rating,
+      ratingCount,
+      location,
+      costForTwo,
+    } = details
+
+    return (
+      <CardMaiContainer>
+        <Image src={url} atl="" />
+        <DetailsContainers>
+          <CardName>{name}</CardName>
+          {cuisine && <PriceText>{cuisine}</PriceText>}
+          {price && <PriceText>{price}</PriceText>}
+          <RatingContainer>
+            <RatingText>
+              <Icon />
+              {rating}
+            </RatingText>
+            {ratingCount && `(${ratingCount} rating)`}
+          </RatingContainer>
+        </DetailsContainers>
+      </CardMaiContainer>
+    )
   }
 
   render() {
     const {details} = this.state
     return (
       <SpecificRouteMainContainer>
-        <Header home />
-        <BannerPart>
-          <Card details={details} />
-        </BannerPart>
+        <Header home="true" />
+        <BannerPart>{this.renderBanner()}</BannerPart>
         <DetailsAndListContainer>
           <CardListContainer>{this.renderCardList()}</CardListContainer>
         </DetailsAndListContainer>

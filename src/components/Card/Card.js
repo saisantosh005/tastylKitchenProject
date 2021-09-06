@@ -1,3 +1,4 @@
+import {BiRupee} from 'react-icons/bi'
 import {
   CardMaiContainer,
   Image,
@@ -11,8 +12,17 @@ import {
 } from './styledComponents'
 
 const Card = props => {
-  const {details, button} = props
-  const {url, cuisine, price, name, rating, ratingCount} = details
+  const {details, button, banner} = props
+  const {
+    url,
+    cuisine,
+    price,
+    name,
+    rating,
+    ratingCount,
+    location,
+    costForTwo,
+  } = details
 
   return (
     <CardMaiContainer>
@@ -21,7 +31,6 @@ const Card = props => {
         <CardName>{name}</CardName>
         {cuisine && <PriceText>{cuisine}</PriceText>}
         {price && <PriceText>{price}</PriceText>}
-
         <RatingContainer>
           <RatingText>
             <Icon />
@@ -29,6 +38,7 @@ const Card = props => {
           </RatingText>
           {ratingCount && `(${ratingCount} rating)`}
         </RatingContainer>
+
         {button && <Button type="button">Add</Button>}
       </DetailsContainers>
     </CardMaiContainer>
