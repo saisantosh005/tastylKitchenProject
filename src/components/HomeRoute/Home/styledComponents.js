@@ -10,6 +10,8 @@ const BannerSectionContainer = styled.div`
   align-self: center;
   width: 100%;
   margin: 10px;
+  text-align: ${props => (props.spin ? 'center' : 'none')};
+
   @media screen and (min-width: 800px) {
     padding: 165px 96px;
     max-width: 1500px;
@@ -27,6 +29,8 @@ const DetailsAndListContainer = styled.div`
   align-self: center;
   padding: 24px 32px;
   flex-grow: 1;
+  width: 100%;
+  text-align: ${props => (props.spin ? 'center' : 'none')};
   @media screen and (min-width: 800px) {
     padding: 165px 96px;
     max-width: 1500px;
@@ -125,6 +129,12 @@ const CardListContainer = styled.div`
 
 const CardLink = styled(Link)`
   text-decoration: none;
+  width: 100%;
+  max-width: 380px;
+
+  @media screen and (min-width: 566px) {
+    margin-right: 28px;
+  }
 `
 export {
   HomeMainContainer,

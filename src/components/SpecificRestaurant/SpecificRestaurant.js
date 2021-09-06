@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
+import {BiRupee} from 'react-icons/bi'
+import Loader from 'react-loader-spinner'
 
 import Header from '../Header/Header'
 import Card from '../Card/Card'
@@ -19,10 +21,21 @@ import {
   RatingContainer,
   Icon,
   RatingText,
+  SmallText,
+  RatingAndPriceContainer,
+  BannerAndListContainer,
 } from './styledComponents'
+
+const apiConstants = {
+  inProgress: 'IN_PROGRESS',
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+}
 
 class SpecificRoute extends Component {
   state = {
+    apiStatus: apiConstants.initial,
     itemsList: [],
     details: {
       url: '',
@@ -40,6 +53,9 @@ class SpecificRoute extends Component {
   }
 
   getRestaurantItemsList = async () => {
+    this.setState({
+      apiStatus: apiConstants.inProgress,
+    })
     const {match} = this.props
     const {id} = match.params
     const url = `https://apis.ccbp.in/restaurants-list/${id}`
@@ -70,7 +86,9 @@ class SpecificRoute extends Component {
           rating: eachItem.rating,
         })),
       })
-      console.log(responseData)
+      this.setState({
+        apiStatus: apiConstants.success,
+      })
     }
   }
 
@@ -100,28 +118,62 @@ class SpecificRoute extends Component {
         <DetailsContainers>
           <CardName>{name}</CardName>
           {cuisine && <PriceText>{cuisine}</PriceText>}
-          {price && <PriceText>{price}</PriceText>}
-          <RatingContainer>
-            <RatingText>
-              <Icon />
-              {rating}
-            </RatingText>
-            {ratingCount && `(${ratingCount} rating)`}
-          </RatingContainer>
+          {ratingCount && <PriceText>{ratingCount}</PriceText>}
+          <RatingAndPriceContainer>
+            <RatingContainer one="true">
+              <RatingText>
+                <Icon />
+                {rating}
+              </RatingText>
+              <SmallText>{costForTwo}</SmallText>
+            </RatingContainer>
+            <RatingContainer>
+              <RatingText>
+                <BiRupee />
+                {costForTwo}
+              </RatingText>
+              <SmallText>Cost for Two</SmallText>
+            </RatingContainer>
+          </RatingAndPriceContainer>
         </DetailsContainers>
       </CardMaiContainer>
     )
   }
 
+  renderSpin = () => (
+    <div className="products-loader-container">
+      <Loader type="TailSpin" color="#F7931E" height="50" width="50" />
+    </div>
+  )
+
+  renderBannerAndItemsList = () => {
+    const {apiStatus, offers} = this.state
+    switch (apiStatus) {
+      case apiConstants.success:
+        return (
+          <>
+            <BannerPart>{this.renderBanner()}</BannerPart>
+            <DetailsAndListContainer>
+              <CardListContainer>{this.renderCardList()}</CardListContainer>
+            </DetailsAndListContainer>
+          </>
+        )
+      case apiConstants.failure:
+        return <div>Failure</div>
+      case apiConstants.inProgress:
+        return <>{this.renderSpin()}</>
+      default:
+        return null
+    }
+  }
+
   render() {
-    const {details} = this.state
     return (
       <SpecificRouteMainContainer>
         <Header home="true" />
-        <BannerPart>{this.renderBanner()}</BannerPart>
-        <DetailsAndListContainer>
-          <CardListContainer>{this.renderCardList()}</CardListContainer>
-        </DetailsAndListContainer>
+        <BannerAndListContainer>
+          {this.renderBannerAndItemsList()}
+        </BannerAndListContainer>
         <Footer />
       </SpecificRouteMainContainer>
     )

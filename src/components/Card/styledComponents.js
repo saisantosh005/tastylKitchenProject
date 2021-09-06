@@ -5,9 +5,14 @@ const CardMaiContainer = styled.div`
   align-self: center;
   display: flex;
   margin-bottom: 24px;
-  border: 2px solid red;
-  width: 380px;
-  max-width: 1200px;
+  flex-grow: 1;
+  min-width: 100%;
+  @media screen and (min-width: 768px) {
+    margin-right: 20px;
+    width: 380px;
+    min-width: 380px;
+    max-width: 380px;
+  }
 `
 
 const ImageContainer = styled.div`
@@ -20,10 +25,10 @@ const Image = styled.img`
   max-width: 160px;
   height: 100px;
   margin-right: 16px;
+  border-radius: 8px;
 
   @media screen and (min-width: 768px) {
     height: 100px;
-    border-radius: 8px;
   }
 `
 
@@ -32,7 +37,7 @@ const DetailsContainers = styled.div``
 const CardName = styled.p`
   display: flex;
   flex-wrap: wrap;
-  color: '#334155';
+  color: #334155;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: bold;
@@ -47,7 +52,7 @@ const CardName = styled.p`
 `
 
 const PriceText = styled.p`
-  color: '#334155';
+  color: #334155;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 500;
@@ -62,7 +67,7 @@ const PriceText = styled.p`
 
 const RatingContainer = styled.div`
   display: flex;
-  color: '#64748b';
+  color: #64748b;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: normal;
@@ -78,7 +83,7 @@ const Icon = styled(AiFillStar)`
 `
 
 const RatingText = styled.p`
-  color: '#1e293b';
+  color: #1e293b;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: bold;

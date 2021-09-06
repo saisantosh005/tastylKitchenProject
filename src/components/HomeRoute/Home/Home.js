@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
 import {MdSort} from 'react-icons/md'
+import Loader from 'react-loader-spinner'
 
 import Header from '../../Header/Header'
 import Footer from '../../Footer/Footer'
@@ -25,8 +26,17 @@ import {
   BannerSectionContainer,
 } from './styledComponents'
 
+const apiConstants = {
+  inProgress: 'IN_PROGRESS',
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+}
+
 class Home extends Component {
   state = {
+    apiOneStatus: apiConstants.initial,
+    apiTwoStatus: apiConstants.initial,
     offers: [],
     restaurantsList: [],
     total: 0,
@@ -40,6 +50,9 @@ class Home extends Component {
   }
 
   getOffersList = async () => {
+    this.setState({
+      apiOneStatus: apiConstants.inProgress,
+    })
     const url = 'https://apis.ccbp.in/restaurants-list/offers'
     const jwtToken = Cookies.get('jwtToken')
     const options = {
@@ -47,16 +60,24 @@ class Home extends Component {
       headers: {Authorization: `Bearer ${jwtToken}`},
     }
     const response = await fetch(url, options)
-    const responseData = await response.json()
-    this.setState({
-      offers: responseData.offers.map(eachItem => ({
-        id: eachItem.id,
-        url: eachItem.image_url,
-      })),
-    })
+    if (response.ok) {
+      const responseData = await response.json()
+      this.setState({
+        offers: responseData.offers.map(eachItem => ({
+          id: eachItem.id,
+          url: eachItem.image_url,
+        })),
+      })
+      this.setState({
+        apiTwoStatus: apiConstants.success,
+      })
+    }
   }
 
   getPopularRestaurantsList = async () => {
+    this.setState({
+      apiTwoStatus: apiConstants.inProgress,
+    })
     const {offsetCount} = this.state
     const offset = offsetCount * 10
     const limit = 10
@@ -68,17 +89,22 @@ class Home extends Component {
       headers: {Authorization: `Bearer ${jwtToken}`},
     }
     const response = await fetch(url, options)
-    const responseData = await response.json()
+    if (response.ok) {
+      const responseData = await response.json()
+      this.setState({
+        restaurantsList: responseData.restaurants.map(eachItem => ({
+          id: eachItem.id,
+          cuisine: eachItem.cuisine,
+          name: eachItem.name,
+          url: eachItem.image_url,
+          rating: eachItem.user_rating.rating,
+          ratingCount: eachItem.user_rating.total_reviews,
+        })),
+        total: responseData.total / 10,
+      })
+    }
     this.setState({
-      restaurantsList: responseData.restaurants.map(eachItem => ({
-        id: eachItem.id,
-        cuisine: eachItem.cuisine,
-        name: eachItem.name,
-        url: eachItem.image_url,
-        rating: eachItem.user_rating.rating,
-        ratingCount: eachItem.user_rating.total_reviews,
-      })),
-      total: responseData.total / 10,
+      apiOneStatus: apiConstants.success,
     })
   }
 
@@ -117,41 +143,87 @@ class Home extends Component {
     ))
   }
 
+  renderSpin = () => (
+    <div className="products-loader-container">
+      <Loader type="TailSpin" color="#F7931E" height="50" width="50" />
+    </div>
+  )
+
+  renderDetailsSection = () => {
+    const {apiTwoStatus, restaurantsList, offsetCount, total} = this.state
+    switch (apiTwoStatus) {
+      case apiConstants.success:
+        return (
+          <DetailsAndListContainer>
+            <DetailsAndSortContainer>
+              <DetailsContainer>
+                <Heading>Popular Restaurants</Heading>
+                <Description>
+                  Select Your favourite restaurant special dish and make your
+                  day happy..
+                </Description>
+              </DetailsContainer>
+              <SortContainer>
+                <MdSort />
+                <Select onChange={this.sortProducts}>
+                  <Option value="lowest">Lowest </Option>
+                  <Option value="highest">Highest</Option>
+                </Select>
+              </SortContainer>
+            </DetailsAndSortContainer>
+            <CardListContainer>{this.renderCardList()}</CardListContainer>
+            {restaurantsList.length !== 0 && (
+              <Pagination
+                count={offsetCount + 1}
+                total={total}
+                increasePageCount={this.increasePageCount}
+                decreasePageCount={this.decreasePageCount}
+              />
+            )}
+          </DetailsAndListContainer>
+        )
+      case apiConstants.failure:
+        return <div>Failure</div>
+      case apiConstants.inProgress:
+        return (
+          <DetailsAndListContainer spin>
+            {this.renderSpin()}
+          </DetailsAndListContainer>
+        )
+      default:
+        return null
+    }
+  }
+
+  renderBannerSection = () => {
+    const {apiOneStatus, offers} = this.state
+    switch (apiOneStatus) {
+      case apiConstants.success:
+        return (
+          <BannerSectionContainer>
+            <BannerSection detailsList={offers} />
+          </BannerSectionContainer>
+        )
+      case apiConstants.failure:
+        return <div>Failure</div>
+      case apiConstants.inProgress:
+        return (
+          <BannerSectionContainer spin>
+            {this.renderSpin()}
+          </BannerSectionContainer>
+        )
+      default:
+        return null
+    }
+  }
+
   render() {
     const {offers, restaurantsList, offsetCount, total} = this.state
     return (
       <HomeMainContainer>
         <Header home />
-        <BannerSectionContainer>
-          <BannerSection detailsList={offers} />
-        </BannerSectionContainer>
-        <DetailsAndListContainer>
-          <DetailsAndSortContainer>
-            <DetailsContainer>
-              <Heading>Popular Restaurants</Heading>
-              <Description>
-                Select Your favourite restaurant special dish and make your day
-                happy..
-              </Description>
-            </DetailsContainer>
-            <SortContainer>
-              <MdSort />
-              <Select onChange={this.sortProducts}>
-                <Option value="lowest">Lowest </Option>
-                <Option value="highest">Highest</Option>
-              </Select>
-            </SortContainer>
-          </DetailsAndSortContainer>
-          <CardListContainer>{this.renderCardList()}</CardListContainer>
-          {restaurantsList.length !== 0 && (
-            <Pagination
-              count={offsetCount + 1}
-              total={total}
-              increasePageCount={this.increasePageCount}
-              decreasePageCount={this.decreasePageCount}
-            />
-          )}
-        </DetailsAndListContainer>
+        {this.renderBannerSection()}
+        {this.renderDetailsSection()}
         <Footer />
       </HomeMainContainer>
     )
