@@ -111,7 +111,7 @@ class Home extends Component {
   renderCardList = () => {
     const {restaurantsList} = this.state
     return restaurantsList.map(eachItem => (
-      <CardLink to={`${eachItem.id}`} key={uuidv4()}>
+      <CardLink to={`/restaurant/${eachItem.id}`} key={uuidv4()}>
         <Card details={eachItem} />
       </CardLink>
     ))

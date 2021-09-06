@@ -47,7 +47,7 @@ class Header extends Component {
     return (
       <HeaderMainContainer>
         <HeaderPart>
-          <LogoContainer>
+          <LogoContainer to="/">
             <Logo
               color="#f7931e"
               imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"

@@ -21,7 +21,9 @@ const HeaderPart = styled.div`
     padding: 0px;
   }
 `
-const LogoContainer = styled.div``
+const LogoContainer = styled(Link)`
+  text-decoration: none;
+`
 const NavContainer = styled.div`
   display: none;
   align-items: center;

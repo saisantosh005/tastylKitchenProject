@@ -6,6 +6,7 @@ import Home from './components/HomeRoute/Home/Home'
 import LoginRoute from './components/Authentication/LoginRoute/LoginRoute'
 import NotFound from './components/NotFound/NotFound'
 import Cart from './components/CartRoute/Cart/Cart'
+import SpecificRoute from './components/SpecificRestaurant/SpecificRestaurant'
 
 const App = () => (
   <div>
@@ -13,6 +14,12 @@ const App = () => (
       <Switch>
         <Route exact path="/login" component={LoginRoute} />
         <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute
+          exact
+          path="/restaurant/:id"
+          component={SpecificRoute}
+        />
+
         <ProtectedRoute exact path="/cart" component={Cart} />
         <Route exact path="/not-found" component={NotFound} />
         <Redirect to="/not-found" />

@@ -12,14 +12,16 @@ import {
 
 const Card = props => {
   const {details, button} = props
-  const {url, cuisine, name, rating, ratingCount} = details
+  const {url, cuisine, price, name, rating, ratingCount} = details
 
   return (
     <CardMaiContainer>
       <Image src={url} atl="" />
       <DetailsContainers>
         <CardName>{name}</CardName>
-        <PriceText>{cuisine}</PriceText>
+        {cuisine && <PriceText>{cuisine}</PriceText>}
+        {price && <PriceText>{price}</PriceText>}
+
         <RatingContainer>
           <RatingText>
             <Icon />
