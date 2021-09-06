@@ -1,15 +1,10 @@
+import {AiFillStar} from 'react-icons/ai'
 import styled from 'styled-components'
 
 const CardMaiContainer = styled.div`
+  align-self: center;
   display: flex;
   margin-bottom: 24px;
-  //   flex-grow: 1;
-
-  //   min-width: 330px;
-  //   max-width: 380px;
-  //   width: 100%;
-
-  //   border: 2px solid red;
   @media screen and (min-width: 768px) {
     margin-right: 20px;
     width: 380px;
@@ -23,6 +18,7 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   min-width: 160px;
+  max-width: 160px;
   height: 100px;
   border-radius: 8px;
   margin-right: 16px;
@@ -62,30 +58,68 @@ const PriceText = styled.p`
 `
 
 const RatingContainer = styled.div`
+  display: flex;
+  align-items: center;
   color: #64748b;
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 16px;
+  margin: 8px 0px;
+
+  //   @media screen and (min-width: 768px) {
+  //     // font-size: 18px;
+  //   }
+`
+
+const Icon = styled(AiFillStar)`
+  color: #ffcc00;
+  margin-right: 4px;
+`
+
+const RatingText = styled.p`
+  color: #1e293b;
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  margin: 0px;
+  margin-right: 8px;
   @media screen and (min-width: 768px) {
-    font-size: 18px;
   }
 `
 
 const Button = styled.button`
+  width: 42px;
+  height: 23.59px;
+  color: #ffa412;
+  border: 1.44828px solid #ffa412;
+  box-sizing: border-box;
+  border-radius: 5.7931px;
+  background: none;
+  text-transform: uppercase;
   @media screen and (min-width: 768px) {
     font-size: 18px;
+    width: 58px;
+    height: 32px;
+    font-size: 12px;
+    line-height: 16px;
   }
 `
 
 export {
   CardMaiContainer,
   ImageContainer,
+  Icon,
   Image,
   DetailsContainers,
   CardName,
   PriceText,
+  RatingText,
   RatingContainer,
   Button,
 }

@@ -1,21 +1,29 @@
 import Cookies from 'js-cookie'
 import {Component} from 'react'
 import {v4 as uuidv4} from 'uuid'
+import {MdSort} from 'react-icons/md'
 
 import Header from '../../Header/Header'
 import Footer from '../../Footer/Footer'
+
+import Pagination from '../../Pagination/Pagination'
+import Card from '../../Card/Card'
+import BannerSection from '../../BannerSection/BannerSection'
 
 import {
   HomeMainContainer,
   DetailsAndListContainer,
   DetailsContainer,
+  DetailsAndSortContainer,
+  Select,
+  Option,
+  SortContainer,
   Description,
   Heading,
   CardListContainer,
   CardLink,
+  BannerSectionContainer,
 } from './styledComponents'
-import Pagination from '../../Pagination/Pagination'
-import Card from '../../Card/Card'
 
 class Home extends Component {
   state = {
@@ -23,6 +31,7 @@ class Home extends Component {
     restaurantsList: [],
     total: 0,
     offsetCount: 0,
+    sort: '',
   }
 
   componentDidMount() {
@@ -32,7 +41,6 @@ class Home extends Component {
 
   getOffersList = async () => {
     const url = 'https://apis.ccbp.in/restaurants-list/offers'
-    // https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${LIMIT}
     const jwtToken = Cookies.get('jwtToken')
     const options = {
       method: 'GET',
@@ -40,7 +48,6 @@ class Home extends Component {
     }
     const response = await fetch(url, options)
     const responseData = await response.json()
-
     this.setState({
       offers: responseData.offers.map(eachItem => ({
         id: eachItem.id,
@@ -77,7 +84,7 @@ class Home extends Component {
 
   increasePageCount = () => {
     const {offsetCount, total} = this.state
-    if (offsetCount < total) {
+    if (offsetCount < total - 1) {
       this.setState(
         prevState => ({
           offsetCount: prevState.offsetCount + 1,
@@ -89,7 +96,7 @@ class Home extends Component {
 
   decreasePageCount = () => {
     const {offsetCount} = this.state
-    if (offsetCount > 1) {
+    if (offsetCount > 0) {
       this.setState(
         prevState => ({
           offsetCount: prevState.offsetCount - 1,
@@ -98,6 +105,8 @@ class Home extends Component {
       )
     }
   }
+
+  sortProducts = () => {}
 
   renderCardList = () => {
     const {restaurantsList} = this.state
@@ -110,26 +119,38 @@ class Home extends Component {
 
   render() {
     const {offers, restaurantsList, offsetCount, total} = this.state
-    console.log(offers, restaurantsList, total)
-
     return (
       <HomeMainContainer>
         <Header home />
+        <BannerSectionContainer>
+          <BannerSection detailsList={offers} />
+        </BannerSectionContainer>
         <DetailsAndListContainer>
-          <DetailsContainer>
-            <Heading>Popular Restaurants</Heading>
-            <Description>
-              Select Your favourite restaurant special dish and make your day
-              happy..
-            </Description>
-          </DetailsContainer>
+          <DetailsAndSortContainer>
+            <DetailsContainer>
+              <Heading>Popular Restaurants</Heading>
+              <Description>
+                Select Your favourite restaurant special dish and make your day
+                happy..
+              </Description>
+            </DetailsContainer>
+            <SortContainer>
+              <MdSort />
+              <Select onChange={this.sortProducts}>
+                <Option value="lowest">Lowest </Option>
+                <Option value="highest">Highest</Option>
+              </Select>
+            </SortContainer>
+          </DetailsAndSortContainer>
           <CardListContainer>{this.renderCardList()}</CardListContainer>
-          <Pagination
-            count={offsetCount}
-            total={total}
-            increasePageCount={this.increasePageCount}
-            decreasePageCount={this.decreasePageCount}
-          />
+          {restaurantsList.length !== 0 && (
+            <Pagination
+              count={offsetCount + 1}
+              total={total}
+              increasePageCount={this.increasePageCount}
+              decreasePageCount={this.decreasePageCount}
+            />
+          )}
         </DetailsAndListContainer>
         <Footer />
       </HomeMainContainer>

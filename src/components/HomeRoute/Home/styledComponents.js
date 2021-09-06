@@ -4,23 +4,41 @@ import styled from 'styled-components'
 const HomeMainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 100vh;
+`
+const BannerSectionContainer = styled.div`
+  align-self: center;
+  width: 100%;
+  margin: 10px;
+  @media screen and (min-width: 800px) {
+    padding: 165px 96px;
+    max-width: 1500px;
+  }
+  @media screen and (min-width: 566px) {
+    width: 80%;
+    padding: 34px 68px;
+  }
 `
 
 const DetailsAndListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
   padding: 24px 32px;
-  border: 2px solid red;
-  @media screen and (min-width: 768px) {
+  flex-grow: 1;
+  @media screen and (min-width: 800px) {
     padding: 165px 96px;
+    max-width: 1500px;
+  }
+  @media screen and (min-width: 566px) {
+    width: 80%;
+    padding: 34px 68px;
   }
 `
 const DetailsContainer = styled.div`
   @media screen and (min-width: 768px) {
-    width: 80%;
+    width: 100%;
   }
 `
 const Heading = styled.h1`
@@ -45,20 +63,63 @@ const Description = styled.p`
   font-size: 12px;
   line-height: 24px;
   margin: 0px;
-  @media screen and(min-width) {
+  @media screen and (min-width: 768px;) {
     font-size: 16px;
     line-height: 24px;
   }
 `
 
+const DetailsAndSortContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #cbd2d9;
+  padding-bottom: 24px;
+  width: 100%;
+
+  @media screen and (min-width: 768px;) {
+    flex-direction: row;
+  }
+`
+
+const SortContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-top: 16px;
+`
+
+const Select = styled.select`
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 12px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+`
+
+const Option = styled.option`
+  font-size: 12px;
+  width: 100px;
+  border-radius: 8px;
+  margin: 18px 20px;
+`
+
 const CardListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  border: 2px solid green;
+  flex-grow: 1;
+  padding-top: 32px;
+
   @media screen and (min-width: 768px) {
     flex-direction: row;
-    flex-wrap: wrap;
-    width: 80%;
+  }
+  @media screen and (min-width: 566px) {
+    width: 100%;
+    padding-top: 48px;
   }
 `
 
@@ -67,10 +128,15 @@ const CardLink = styled(Link)`
 `
 export {
   HomeMainContainer,
+  BannerSectionContainer,
   DetailsAndListContainer,
   DetailsContainer,
   CardListContainer,
   Description,
   Heading,
   CardLink,
+  DetailsAndSortContainer,
+  Select,
+  Option,
+  SortContainer,
 }
