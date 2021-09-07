@@ -1,7 +1,11 @@
 import React from 'react'
 
 const ProductContext = React.createContext({
-  productList: [],
+  cartList: [],
+  removeFromCart: () => {},
+  onIncrement: () => {},
+  onDecrement: () => {},
+  onAddToCart: () => {},
 })
 
 export default ProductContext

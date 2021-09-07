@@ -9,6 +9,7 @@ import {
   Description,
   Button,
 } from './styledComponents'
+import ProductContext from '../../../Context/ProuductContext/ProuductContext'
 
 class Cart extends Component {
   state = {}
@@ -43,11 +44,24 @@ class Cart extends Component {
 
   render() {
     return (
-      <CartMainContainer>
-        <Header cart />
-
-        {this.renderCardDetails()}
-      </CartMainContainer>
+      <ProductContext.Consumer>
+        {value => {
+          const {
+            cartList,
+            removeFromCart,
+            onIncrement,
+            onDecrement,
+            onAddToCart,
+          } = value
+          console.log(cartList)
+          return (
+            <CartMainContainer>
+              <Header cart />
+              {this.renderCardDetails()}
+            </CartMainContainer>
+          )
+        }}
+      </ProductContext.Consumer>
     )
   }
 }

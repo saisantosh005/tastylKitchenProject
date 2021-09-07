@@ -12,8 +12,9 @@ import {
 } from './styledComponents'
 
 const Card = props => {
-  const {details, button, banner} = props
+  const {details, button, buttonCLickHandler} = props
   const {
+    id,
     url,
     cuisine,
     price,
@@ -23,6 +24,10 @@ const Card = props => {
     location,
     costForTwo,
   } = details
+
+  const onButtonClick = () => {
+    buttonCLickHandler(id)
+  }
 
   return (
     <CardMaiContainer>
@@ -39,7 +44,11 @@ const Card = props => {
           {ratingCount && `(${ratingCount} rating)`}
         </RatingContainer>
 
-        {button && <Button type="button">Add</Button>}
+        {button && (
+          <Button type="button" onClick={onButtonClick}>
+            Add
+          </Button>
+        )}
       </DetailsContainers>
     </CardMaiContainer>
   )

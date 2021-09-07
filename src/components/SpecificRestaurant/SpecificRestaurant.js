@@ -25,6 +25,7 @@ import {
   RatingAndPriceContainer,
   BannerAndListContainer,
 } from './styledComponents'
+import ProductContext from '../../Context/ProuductContext/ProuductContext'
 
 const apiConstants = {
   inProgress: 'IN_PROGRESS',
@@ -84,6 +85,7 @@ class SpecificRoute extends Component {
           url: eachItem.image_url,
           price: eachItem.cost,
           rating: eachItem.rating,
+          quantity: 0,
         })),
       })
       this.setState({
@@ -92,10 +94,15 @@ class SpecificRoute extends Component {
     }
   }
 
-  renderCardList = () => {
+  renderCardList = onAddClick => {
     const {itemsList} = this.state
     return itemsList.map(eachItem => (
-      <Card details={eachItem} button key={uuidv4()} />
+      <Card
+        details={eachItem}
+        button
+        key={uuidv4()}
+        buttonCLickHandler={onAddClick}
+      />
     ))
   }
 
@@ -146,7 +153,7 @@ class SpecificRoute extends Component {
     </div>
   )
 
-  renderBannerAndItemsList = () => {
+  renderBannerAndItemsList = onAddClick => {
     const {apiStatus, offers} = this.state
     switch (apiStatus) {
       case apiConstants.success:
@@ -154,7 +161,9 @@ class SpecificRoute extends Component {
           <>
             <BannerPart>{this.renderBanner()}</BannerPart>
             <DetailsAndListContainer>
-              <CardListContainer>{this.renderCardList()}</CardListContainer>
+              <CardListContainer>
+                {this.renderCardList(onAddClick)}
+              </CardListContainer>
             </DetailsAndListContainer>
           </>
         )
@@ -169,13 +178,25 @@ class SpecificRoute extends Component {
 
   render() {
     return (
-      <SpecificRouteMainContainer>
-        <Header home="true" />
-        <BannerAndListContainer>
-          {this.renderBannerAndItemsList()}
-        </BannerAndListContainer>
-        <Footer />
-      </SpecificRouteMainContainer>
+      <ProductContext.Consumer>
+        {value => {
+          const {onAddToCart} = value
+          const {itemsList} = this.state
+          const onAddClick = id => {
+            const product = itemsList.filter(eachItem => eachItem.id === id)
+            onAddToCart(product[0])
+          }
+          return (
+            <SpecificRouteMainContainer>
+              <Header home="true" />
+              <BannerAndListContainer>
+                {this.renderBannerAndItemsList(onAddClick)}
+              </BannerAndListContainer>
+              <Footer />
+            </SpecificRouteMainContainer>
+          )
+        }}
+      </ProductContext.Consumer>
     )
   }
 }
