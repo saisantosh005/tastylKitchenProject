@@ -1,48 +1,79 @@
 import {Component} from 'react'
+import {v4 as uuidv4} from 'uuid'
+import {BiRupee} from 'react-icons/bi'
+
 import Header from '../../Header/Header'
 
 import {
   CartMainContainer,
-  Image,
-  NoCartDetailsContainer,
-  Heading,
-  Description,
   Button,
+  CartListContainer,
+  CartListAndFooterContainer,
+  CartListAndOrderSummaryContainer,
+  OrderSummaryContainer,
+  TextContainer,
+  OrderSummaryText,
 } from './styledComponents'
 import ProductContext from '../../../Context/ProuductContext/ProuductContext'
+import Card from '../../Card/Card'
+import Footer from '../../Footer/Footer'
+import SuccessOrNoOrderCard from '../SuccessOrNoOrderCard/SuccessOrNoOrderCard'
 
 class Cart extends Component {
-  state = {}
+  state = {orderStatus: 'initial'}
 
   onClickOrderNow = () => {
     const {history} = this.props
     history.replace('/')
   }
 
-  renderCardDetails = () => {
-    const {cartList} = this.props
-    // const
-    // Switch(){
-    // }
+  renderCardList = cartList =>
+    cartList.map(eachItem => <Card key={uuidv4()} details={eachItem} />)
 
-    // if (cartList.length > 0) {
-    //   return <div>Hljj</div>
-    // }
-    return (
-      <NoCartDetailsContainer>
-        <Image src="https://res.cloudinary.com/delguky36/image/upload/v1630839419/OBJECTS_hom2wf.png" />
-        <Heading>No Orders Yet!</Heading>
-        <Description>
-          Your cart is empty. Add something from the menu.
-        </Description>
-        <Button type="button" onClick={this.onClickOrderNow}>
-          Order Now
-        </Button>
-      </NoCartDetailsContainer>
-    )
+  changeOrderStatus = () => {
+    this.setState({
+      orderStatus: 'success',
+    })
+  }
+
+  renderCardDetails = cartList => {
+    const cartListLength = cartList.length
+    if (cartListLength === 0) {
+      return <SuccessOrNoOrderCard status="cart" />
+    }
+    if (cartListLength > 0) {
+      const priceList = cartList.map(
+        eachItem => eachItem.price * eachItem.quantity,
+      )
+      const totalPrice = priceList.reduce((a, b) => a + b)
+      return (
+        <CartListAndFooterContainer>
+          <CartListAndOrderSummaryContainer>
+            <CartListContainer>
+              {this.renderCardList(cartList)}
+            </CartListContainer>
+            <OrderSummaryContainer>
+              <TextContainer>
+                <OrderSummaryText>OrderTotal:</OrderSummaryText>
+                <OrderSummaryText>
+                  <BiRupee />
+                  {totalPrice}
+                </OrderSummaryText>
+              </TextContainer>
+              <Button type="button" onClick={this.changeOrderStatus}>
+                Place Order
+              </Button>
+            </OrderSummaryContainer>
+          </CartListAndOrderSummaryContainer>
+          <Footer />
+        </CartListAndFooterContainer>
+      )
+    }
+    return null
   }
 
   render() {
+    const {orderStatus} = this.state
     return (
       <ProductContext.Consumer>
         {value => {
@@ -53,11 +84,15 @@ class Cart extends Component {
             onDecrement,
             onAddToCart,
           } = value
-          console.log(cartList)
+
           return (
             <CartMainContainer>
               <Header cart />
-              {this.renderCardDetails()}
+              {orderStatus === 'success' ? (
+                <SuccessOrNoOrderCard status="success" />
+              ) : (
+                this.renderCardDetails(cartList)
+              )}
             </CartMainContainer>
           )
         }}

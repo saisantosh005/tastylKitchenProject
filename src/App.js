@@ -57,25 +57,29 @@ class App extends Component {
   onAddToCart = product => {
     const {cartList} = this.state
     if (cartList.length !== 0) {
-      const isInCart = cartList.findIndex(item => item.id === product.id)
+      const isInCart = cartList.findIndex(item => item.name === product.name)
       if (isInCart !== -1) {
+        console.log('yess')
         const updatedList = cartList.map(eachItem => {
           if (eachItem.id === product.id) {
             return {...eachItem, quantity: eachItem.quantity + 1}
           }
           return {...eachItem}
         })
-        this.setState({
-          cartList: [...updatedList],
-        })
+        this.setState(
+          {
+            cartList: [...updatedList],
+          },
+          console.log(cartList, 'same'),
+        )
       } else {
         this.setState({
-          cartList: [...cartList, product],
+          cartList: [...cartList, {...product, quantity: 1}],
         })
       }
     } else {
       this.setState({
-        cartList: [...cartList, product],
+        cartList: [{...product, quantity: 1}],
       })
     }
   }
@@ -101,7 +105,6 @@ class App extends Component {
                 path="/restaurant/:id"
                 component={SpecificRoute}
               />
-
               <ProtectedRoute exact path="/cart" component={Cart} />
               <Route exact path="/not-found" component={NotFound} />
               <Redirect to="/not-found" />

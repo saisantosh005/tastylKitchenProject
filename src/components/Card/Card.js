@@ -26,7 +26,7 @@ const Card = props => {
   } = details
 
   const onButtonClick = () => {
-    buttonCLickHandler(id)
+    buttonCLickHandler(name)
   }
 
   return (

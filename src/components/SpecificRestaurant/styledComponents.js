@@ -165,10 +165,6 @@ const CardListContainer = styled.div`
     flex-direction: row;
     width: 100%;
   }
-  @media screen and (min-width: 566px) {
-    width: 100%;
-    padding-top: 48px;
-  }
 `
 const DetailsAndListContainer = styled.div`
   display: flex;

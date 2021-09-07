@@ -7,8 +7,10 @@ const FooterMainContainer = styled.div`
   align-items: center;
   background: #0f172a;
   padding: 45px;
+  height: 256px;
+
   @media screen and (min-width: 768px) {
-    height: 400px;
+    height: 391px;
   }
 `
 const FooterDescription = styled.p`

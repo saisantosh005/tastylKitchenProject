@@ -69,6 +69,7 @@ class SpecificRoute extends Component {
 
     if (response.ok) {
       const responseData = await response.json()
+      console.log(responseData)
       this.setState({
         details: {
           url: responseData.image_url,
@@ -177,13 +178,16 @@ class SpecificRoute extends Component {
   }
 
   render() {
+    const {itemsList} = this.state
     return (
       <ProductContext.Consumer>
         {value => {
           const {onAddToCart} = value
-          const {itemsList} = this.state
-          const onAddClick = id => {
-            const product = itemsList.filter(eachItem => eachItem.id === id)
+          const onAddClick = name => {
+            const product = itemsList.filter(
+              eachItem => eachItem.name.toUpperCase() === name.toUpperCase(),
+            )
+            console.log(product, 'product')
             onAddToCart(product[0])
           }
           return (

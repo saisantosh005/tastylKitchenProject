@@ -69,7 +69,7 @@ class Home extends Component {
         })),
       })
       this.setState({
-        apiTwoStatus: apiConstants.success,
+        apiOneStatus: apiConstants.success,
       })
     }
   }
@@ -104,7 +104,7 @@ class Home extends Component {
       })
     }
     this.setState({
-      apiOneStatus: apiConstants.success,
+      apiTwoStatus: apiConstants.success,
     })
   }
 
