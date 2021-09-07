@@ -19,6 +19,7 @@ const BannerPart = styled.div`
   height: 188px;
   background: #333333;
   width: 100%;
+
   @media screen and (min-width: 768px) {
     display: flex;
     justify-content: center;
@@ -33,9 +34,13 @@ const CardMaiContainer = styled.div`
   height: 100%;
   width: 100%;
   max-width: 1400px;
+
   @media screen and (min-width: 768px) {
+    max-width: 1200px;
+  }
+  @media screen and (min-width: 566px) {
     align-items: center;
-    width: 70%;
+    width: 90%;
   }
 `
 
@@ -158,6 +163,7 @@ const CardListContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     flex-direction: row;
+    width: 100%;
   }
   @media screen and (min-width: 566px) {
     width: 100%;
@@ -171,14 +177,15 @@ const DetailsAndListContainer = styled.div`
   align-self: center;
   padding: 24px 32px;
   flex-grow: 1;
+
   align-self: center;
   @media screen and (min-width: 800px) {
-    padding: 165px 96px;
-    max-width: 1500px;
+    width: 70%;
+    max-width: 1300px;
   }
   @media screen and (min-width: 566px) {
-    width: 80%;
-    padding: 34px 68px;
+    width: 100%;
+    padding: 34px 40px;
   }
 `
 export {

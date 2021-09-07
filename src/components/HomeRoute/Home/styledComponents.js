@@ -14,7 +14,7 @@ const BannerSectionContainer = styled.div`
 
   @media screen and (min-width: 800px) {
     padding: 165px 96px;
-    max-width: 1500px;
+    max-width: 1300px;
   }
   @media screen and (min-width: 566px) {
     width: 80%;
@@ -30,14 +30,15 @@ const DetailsAndListContainer = styled.div`
   padding: 24px 32px;
   flex-grow: 1;
   width: 100%;
+
   text-align: ${props => (props.spin ? 'center' : 'none')};
   @media screen and (min-width: 800px) {
     padding: 165px 96px;
-    max-width: 1500px;
+    max-width: 1350px;
   }
   @media screen and (min-width: 566px) {
-    width: 80%;
-    padding: 34px 68px;
+    width: 100%;
+    padding: 34px 40px;
   }
 `
 const DetailsContainer = styled.div`
@@ -79,6 +80,7 @@ const DetailsAndSortContainer = styled.div`
   border-bottom: 1px solid #cbd2d9;
   padding-bottom: 24px;
   width: 100%;
+  //   max-width: 1300px;
 
   @media screen and (min-width: 768px;) {
     flex-direction: row;
