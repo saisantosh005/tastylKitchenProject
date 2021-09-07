@@ -56,6 +56,7 @@ const Button = styled.div`
   margin: 0px 0px;
   width: 73px;
   height: 32px;
+  cursor: pointer;
 `
 const MenuIconContainer = styled(AiOutlineMenu)`
   width: 24px;

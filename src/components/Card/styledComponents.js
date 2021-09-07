@@ -10,8 +10,8 @@ const CardMaiContainer = styled.div`
   @media screen and (min-width: 768px) {
     margin-right: 20px;
     width: 380px;
-    min-width: 380px;
-    max-width: 380px;
+    min-width: ${props => (props.cart ? 1000 : 380)}px;
+    max-width: ${props => (props.cart ? 1000 : 380)}px;
   }
 `
 
@@ -29,10 +29,19 @@ const Image = styled.img`
 
   @media screen and (min-width: 768px) {
     height: 100px;
+    width: ${props => (props.cart ? 136 : 10)}px;
   }
 `
 
-const DetailsContainers = styled.div``
+const DetailsContainers = styled.div`
+  @media screen and (min-width: 768px) {
+    display: ${props => props.cart && 'flex'};
+    align-items: center;
+    width: 100%;
+    justify-content: ${props => props.cart && 'space-between'};
+    padding-right: ${props => props.cart && 110}px;
+  }
+`
 
 const CardName = styled.p`
   display: flex;
@@ -74,6 +83,10 @@ const RatingContainer = styled.div`
   font-size: 12px;
   line-height: 16px;
   margin: 8px 0px;
+  //   border: 2px solid red;
+  @media screen and (min-width: 768px) {
+    display: ${props => props.cart && 'none'};
+  }
 `
 
 const Icon = styled(AiFillStar)`
@@ -98,21 +111,41 @@ const RatingText = styled.p`
 `
 
 const Button = styled.button`
-  width: 42px;
-  height: 23.59px;
-  color: #ffa412;
-  border: 1.44828px solid #ffa412;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${props => (props.one ? 18 : 42)}px;
+  height: ${props => (props.one ? 18 : 23.59)}px;
+  color: ${props => (props.one ? '#3E4C59' : '#ffa412')};
+  border: 1px solid ${props => (props.one ? '#3E4C59' : '#ffa412')};
   box-sizing: border-box;
-  border-radius: 5.7931px;
+  border-radius: ${props => (props.one ? 2 : 5.7931)}px;
   background: none;
   text-transform: uppercase;
+  cursor: pointer;
+  :hover {
+    color: #ffffff;
+    background: ${props => (props.one ? '#3E4C59' : '#ffa412')};
+  }
   @media screen and (min-width: 768px) {
     font-size: 18px;
-    width: 58px;
-    height: 32px;
+    width: ${props => (props.one ? 18 : 58)}px;
+    height: ${props => (props.one ? 18 : 32)}px;
     font-size: 12px;
     line-height: 16px;
   }
+`
+
+const QuantityButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+const Text = styled.p`
+  margin: 0px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0px 10px;
 `
 
 export {
@@ -126,4 +159,6 @@ export {
   RatingText,
   RatingContainer,
   Button,
+  QuantityButtonContainer,
+  Text,
 }

@@ -69,7 +69,6 @@ class SpecificRoute extends Component {
 
     if (response.ok) {
       const responseData = await response.json()
-      console.log(responseData)
       this.setState({
         details: {
           url: responseData.image_url,
@@ -95,14 +94,26 @@ class SpecificRoute extends Component {
     }
   }
 
-  renderCardList = onAddClick => {
+  renderCardList = (onAddClick, cartList, onDecrement, onIncrement) => {
     const {itemsList} = this.state
-    return itemsList.map(eachItem => (
+    const updatedList = itemsList.map(eachItem => {
+      const index = cartList.findIndex(
+        each => each.name.toUpperCase() === eachItem.name.toUpperCase(),
+      )
+      if (index !== -1) {
+        const quantityValue = cartList[index].quantity
+        return {...eachItem, quantity: quantityValue}
+      }
+      return eachItem
+    })
+    return updatedList.map(eachItem => (
       <Card
         details={eachItem}
         button
         key={uuidv4()}
         buttonCLickHandler={onAddClick}
+        onDecrement={onDecrement}
+        onIncrement={onIncrement}
       />
     ))
   }
@@ -154,8 +165,13 @@ class SpecificRoute extends Component {
     </div>
   )
 
-  renderBannerAndItemsList = onAddClick => {
-    const {apiStatus, offers} = this.state
+  renderBannerAndItemsList = (
+    onAddClick,
+    cartList,
+    onDecrement,
+    onIncrement,
+  ) => {
+    const {apiStatus} = this.state
     switch (apiStatus) {
       case apiConstants.success:
         return (
@@ -163,7 +179,12 @@ class SpecificRoute extends Component {
             <BannerPart>{this.renderBanner()}</BannerPart>
             <DetailsAndListContainer>
               <CardListContainer>
-                {this.renderCardList(onAddClick)}
+                {this.renderCardList(
+                  onAddClick,
+                  cartList,
+                  onDecrement,
+                  onIncrement,
+                )}
               </CardListContainer>
             </DetailsAndListContainer>
           </>
@@ -182,19 +203,23 @@ class SpecificRoute extends Component {
     return (
       <ProductContext.Consumer>
         {value => {
-          const {onAddToCart} = value
+          const {onAddToCart, cartList, onDecrement, onIncrement} = value
           const onAddClick = name => {
             const product = itemsList.filter(
               eachItem => eachItem.name.toUpperCase() === name.toUpperCase(),
             )
-            console.log(product, 'product')
             onAddToCart(product[0])
           }
           return (
             <SpecificRouteMainContainer>
               <Header home="true" />
               <BannerAndListContainer>
-                {this.renderBannerAndItemsList(onAddClick)}
+                {this.renderBannerAndItemsList(
+                  onAddClick,
+                  cartList,
+                  onDecrement,
+                  onIncrement,
+                )}
               </BannerAndListContainer>
               <Footer />
             </SpecificRouteMainContainer>

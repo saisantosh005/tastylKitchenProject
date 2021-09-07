@@ -27,8 +27,17 @@ class Cart extends Component {
     history.replace('/')
   }
 
-  renderCardList = cartList =>
-    cartList.map(eachItem => <Card key={uuidv4()} details={eachItem} />)
+  renderCardList = (cartList, onIncrement, onDecrement) =>
+    cartList.map(eachItem => (
+      <Card
+        key={uuidv4()}
+        button
+        cart
+        details={eachItem}
+        onIncrement={onIncrement}
+        onDecrement={onDecrement}
+      />
+    ))
 
   changeOrderStatus = () => {
     this.setState({
@@ -36,7 +45,7 @@ class Cart extends Component {
     })
   }
 
-  renderCardDetails = cartList => {
+  renderCardDetails = (cartList, onIncrement, onDecrement) => {
     const cartListLength = cartList.length
     if (cartListLength === 0) {
       return <SuccessOrNoOrderCard status="cart" />
@@ -50,20 +59,20 @@ class Cart extends Component {
         <CartListAndFooterContainer>
           <CartListAndOrderSummaryContainer>
             <CartListContainer>
-              {this.renderCardList(cartList)}
+              {this.renderCardList(cartList, onIncrement, onDecrement)}
+              <OrderSummaryContainer>
+                <TextContainer>
+                  <OrderSummaryText>OrderTotal:</OrderSummaryText>
+                  <OrderSummaryText>
+                    <BiRupee />
+                    {totalPrice}
+                  </OrderSummaryText>
+                </TextContainer>
+                <Button type="button" onClick={this.changeOrderStatus}>
+                  Place Order
+                </Button>
+              </OrderSummaryContainer>
             </CartListContainer>
-            <OrderSummaryContainer>
-              <TextContainer>
-                <OrderSummaryText>OrderTotal:</OrderSummaryText>
-                <OrderSummaryText>
-                  <BiRupee />
-                  {totalPrice}
-                </OrderSummaryText>
-              </TextContainer>
-              <Button type="button" onClick={this.changeOrderStatus}>
-                Place Order
-              </Button>
-            </OrderSummaryContainer>
           </CartListAndOrderSummaryContainer>
           <Footer />
         </CartListAndFooterContainer>
@@ -91,7 +100,7 @@ class Cart extends Component {
               {orderStatus === 'success' ? (
                 <SuccessOrNoOrderCard status="success" />
               ) : (
-                this.renderCardDetails(cartList)
+                this.renderCardDetails(cartList, onIncrement, onDecrement)
               )}
             </CartMainContainer>
           )

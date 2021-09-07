@@ -9,10 +9,19 @@ import {
   RatingContainer,
   Button,
   Icon,
+  QuantityButtonContainer,
+  Text,
 } from './styledComponents'
 
 const Card = props => {
-  const {details, button, buttonCLickHandler} = props
+  const {
+    details,
+    button,
+    buttonCLickHandler,
+    cart,
+    onDecrement,
+    onIncrement,
+  } = props
   const {
     id,
     url,
@@ -23,20 +32,30 @@ const Card = props => {
     ratingCount,
     location,
     costForTwo,
+    quantity,
   } = details
 
   const onButtonClick = () => {
     buttonCLickHandler(name)
   }
 
+  const increaseCount = () => {
+    // console.log(quantity)
+    onIncrement(name)
+  }
+
+  const decreaseCount = () => {
+    onDecrement(name)
+  }
+
   return (
-    <CardMaiContainer>
-      <Image src={url} atl="" />
-      <DetailsContainers>
+    <CardMaiContainer cart={cart}>
+      <Image cart={cart} src={url} atl="" />
+      <DetailsContainers cart={cart}>
         <CardName>{name}</CardName>
         {cuisine && <PriceText>{cuisine}</PriceText>}
         {price && <PriceText>{price}</PriceText>}
-        <RatingContainer>
+        <RatingContainer cart={cart}>
           <RatingText>
             <Icon />
             {rating}
@@ -44,10 +63,23 @@ const Card = props => {
           {ratingCount && `(${ratingCount} rating)`}
         </RatingContainer>
 
-        {button && (
-          <Button type="button" onClick={onButtonClick}>
-            Add
-          </Button>
+        {button && quantity > 0 && (
+          <QuantityButtonContainer>
+            <Button type="button" onClick={decreaseCount} one>
+              -
+            </Button>
+            <Text>{quantity}</Text>
+            <Button type="button" onClick={increaseCount} one>
+              +
+            </Button>
+          </QuantityButtonContainer>
+        )}
+        {button && quantity === 0 && (
+          <>
+            <Button type="button" onClick={onButtonClick}>
+              Add
+            </Button>
+          </>
         )}
       </DetailsContainers>
     </CardMaiContainer>

@@ -11,7 +11,12 @@ const CartListAndFooterContainer = styled.div`
   flex-direction: column;
   flex-grow: 1;
 `
-const CartListContainer = styled.div``
+const CartListContainer = styled.div`
+  @media screen and (min-width: 566px) {
+    padding: 32px 48px;
+    background: #f9fbfe;
+  }
+`
 const CartListAndOrderSummaryContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,6 +24,7 @@ const CartListAndOrderSummaryContainer = styled.div`
   flex-grow: 1;
   align-self: center;
   width: 100%;
+  //   border: 2px solid red;
 
   @media screen and (min-width: 800px) {
     width: 70%;
@@ -69,6 +75,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   margin-top: 24px;
+  cursor: pointer;
 
   @media screen and (min-width: 768px) {
     margin-top: 16px;

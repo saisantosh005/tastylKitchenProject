@@ -15,11 +15,11 @@ class App extends Component {
     cartList: [],
   }
 
-  onIncrementQuantity = id => {
+  onIncrementQuantity = name => {
     const {cartList} = this.state
 
     const updatedCart = cartList.map(eachItem => {
-      if (eachItem.id === id) {
+      if (eachItem.name === name) {
         return {...eachItem, quantity: eachItem.quantity + 1}
       }
       return eachItem
@@ -29,20 +29,20 @@ class App extends Component {
     })
   }
 
-  onDecrementQuantity = id => {
+  onDecrementQuantity = name => {
     const {cartList} = this.state
-
     const updatedCart = cartList.map(eachItem => {
-      if (eachItem.id === id && eachItem.quantity > 1) {
+      if (eachItem.name === name && eachItem.quantity > 1) {
         return {...eachItem, quantity: eachItem.quantity - 1}
       }
-      if (eachItem.id === id && eachItem.quantity === 1) {
-        return null
+      if (eachItem.name === name && eachItem.quantity === 1) {
+        return false
       }
       return eachItem
     })
+    console.log(updatedCart)
     this.setState({
-      cartList: [...updatedCart],
+      cartList: updatedCart.filter(eachItem => eachItem !== false),
     })
   }
 
@@ -59,19 +59,15 @@ class App extends Component {
     if (cartList.length !== 0) {
       const isInCart = cartList.findIndex(item => item.name === product.name)
       if (isInCart !== -1) {
-        console.log('yess')
         const updatedList = cartList.map(eachItem => {
           if (eachItem.id === product.id) {
             return {...eachItem, quantity: eachItem.quantity + 1}
           }
           return {...eachItem}
         })
-        this.setState(
-          {
-            cartList: [...updatedList],
-          },
-          console.log(cartList, 'same'),
-        )
+        this.setState({
+          cartList: [...updatedList],
+        })
       } else {
         this.setState({
           cartList: [...cartList, {...product, quantity: 1}],
@@ -91,7 +87,7 @@ class App extends Component {
         value={{
           cartList,
           onAddToCart: this.onAddToCart,
-          onDecrement: this.onIncrementQuantity,
+          onDecrement: this.onDecrementQuantity,
           onIncrement: this.onIncrementQuantity,
         }}
       >
