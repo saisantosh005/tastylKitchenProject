@@ -40,7 +40,6 @@ class App extends Component {
       }
       return eachItem
     })
-    console.log(updatedCart)
     this.setState({
       cartList: updatedCart.filter(eachItem => eachItem !== false),
     })

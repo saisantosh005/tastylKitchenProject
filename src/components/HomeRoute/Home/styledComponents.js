@@ -12,13 +12,10 @@ const BannerSectionContainer = styled.div`
   margin: 10px;
   text-align: ${props => (props.spin ? 'center' : 'none')};
 
-  @media screen and (min-width: 800px) {
-    padding: 165px 96px;
-    max-width: 1300px;
-  }
   @media screen and (min-width: 566px) {
     width: 80%;
     padding: 34px 68px;
+    max-width: 1300px;
   }
 `
 
@@ -116,8 +113,8 @@ const Option = styled.option`
 
 const CardListContainer = styled.div`
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
-  flex-grow: 1;
   padding-top: 32px;
 
   @media screen and (min-width: 768px) {

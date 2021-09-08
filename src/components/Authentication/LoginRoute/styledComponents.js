@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 const LoginRouteMainContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-
   min-height: 100vh;
+  padding-bottom: 48px;
   @media screen and (min-width: 658px) {
+    flex-direction: row;
     justify-content: space-around;
   }
 `
@@ -14,7 +16,9 @@ const LoginFormSection = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  order: 1;
   @media screen and (min-width: 768px) {
+    order: 0;
     width: 50%;
   }
 `
@@ -27,8 +31,9 @@ const LoginFormMainContainer = styled.form`
   padding: 24px;
 
   @media screen and (min-width: 768px) {
-    width: 456px;
-    height: 523px;
+    width: 90%;
+    max-width: 456px;
+    max-height: 523px;
     box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
     padding: 48px;
   }
@@ -110,9 +115,17 @@ const Button = styled.button`
 `
 
 const Image = styled.img`
-  display: none;
-
+  order: 0;
+  display: absolute;
+  align-self: flex-end;
+  width: 347px;
+  height: 320px;
+  border-bottom-left-radius: 190px;
+  border-bottom-right-radius: 160px;
+  border-top-left-radius: 150px;
+  margin: 0px;
   @media screen and (min-width: 658px) {
+    border-radius: 0px;
     display: flex;
     width: 50%;
     height: 100vh;
@@ -125,6 +138,9 @@ const LogoContainer = styled.div`
   @media screen and (min-width: 768px) {
     display: flex;
   }
+`
+const Text = styled.p`
+  color: ${props => (props.errorText ? '#EF4444' : '')};
 `
 
 export {
@@ -140,4 +156,5 @@ export {
   Input,
   Button,
   LogoContainer,
+  Text,
 }

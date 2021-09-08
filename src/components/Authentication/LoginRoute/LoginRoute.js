@@ -14,6 +14,7 @@ import {
   Image,
   FormPart,
   LogoContainer,
+  Text,
 } from './styledComponents'
 import Logo from '../../Logo/Logo'
 
@@ -23,6 +24,7 @@ class LoginRoute extends Component {
   state = {
     username: '',
     password: '',
+    errorMessage: '',
   }
 
   onChangeUserName = event => {
@@ -49,11 +51,15 @@ class LoginRoute extends Component {
       const responseData = await response.json()
       Cookies.set('jwtToken', responseData.jwt_token, {expires: 30})
       history.replace('/')
+    } else {
+      this.setState({
+        errorMessage: 'true',
+      })
     }
   }
 
   renderLoginForm = () => {
-    const {username, password} = this.state
+    const {username, password, errorMessage} = this.state
     return (
       <LoginFormMainContainer onSubmit={this.onSubmit}>
         <LogoAndHeadingContainer>
@@ -64,17 +70,28 @@ class LoginRoute extends Component {
               imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"
             />
           </LogoContainer>
-          <Heading>Sign in</Heading>
+          <Heading>Login</Heading>
         </LogoAndHeadingContainer>
         <FormPart>
           <LabelAndInputContainer>
             <Label>USERNAME</Label>
-            <Input value={username} onChange={this.onChangeUserName} />
+            <Input
+              type="text"
+              value={username}
+              onChange={this.onChangeUserName}
+            />
           </LabelAndInputContainer>
           <LabelAndInputContainer>
             <Label>PASSWORD</Label>
-            <Input value={password} onChange={this.onChangePassword} />
+            <Input
+              type="password"
+              value={password}
+              onChange={this.onChangePassword}
+            />
           </LabelAndInputContainer>
+          {errorMessage && (
+            <Text errorText>Please enter a valid Username & Password</Text>
+          )}
           <Button type="submit">Sign in</Button>
         </FormPart>
       </LoginFormMainContainer>

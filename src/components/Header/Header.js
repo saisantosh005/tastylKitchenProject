@@ -20,11 +20,10 @@ import Logo from '../Logo/Logo'
 class Header extends Component {
   state = {
     showNavIconSection: false,
-    offers: [],
   }
 
   logout = () => {
-    const {history, home, cart} = this.props
+    const {history} = this.props
     Cookies.remove('jwtToken')
     history.replace('/')
   }
@@ -41,18 +40,43 @@ class Header extends Component {
     })
   }
 
+  renderMenuSection = () => {
+    const {home, cart} = this.props
+
+    return (
+      <NavContainerTwo>
+        <IconContainerTwo>
+          <NavItem to="/" selected={home}>
+            Home
+          </NavItem>
+          <NavItem to="/cart" selected={cart}>
+            Cart
+          </NavItem>
+          <Button type="button" onClick={this.logout}>
+            Logout
+          </Button>
+        </IconContainerTwo>
+        <AiFillCloseCircle onClick={this.closeIconContainer} />
+      </NavContainerTwo>
+    )
+  }
+
+  renderLogoPart = () => (
+    <LogoContainer to="/">
+      <Logo
+        color="#f7931e"
+        imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"
+      />
+    </LogoContainer>
+  )
+
   render() {
     const {home, cart} = this.props
     const {showNavIconSection} = this.state
     return (
       <HeaderMainContainer>
         <HeaderPart>
-          <LogoContainer to="/">
-            <Logo
-              color="#f7931e"
-              imgUrl="https://res.cloudinary.com/delguky36/image/upload/v1630820226/Vector_hrufre.jpg"
-            />
-          </LogoContainer>
+          {this.renderLogoPart()}
           <NavContainer>
             <NavItem to="/" selected={home}>
               Home
@@ -66,22 +90,7 @@ class Header extends Component {
           </NavContainer>
           <MenuIconContainer onClick={this.onClickMenu} />
         </HeaderPart>
-        {showNavIconSection && (
-          <NavContainerTwo>
-            <IconContainerTwo>
-              <NavItem to="/" selected={home}>
-                Home
-              </NavItem>
-              <NavItem to="/cart" selected={cart}>
-                Cart
-              </NavItem>
-              <Button type="button" onClick={this.logout}>
-                Logout
-              </Button>
-            </IconContainerTwo>
-            <AiFillCloseCircle onClick={this.closeIconContainer} />
-          </NavContainerTwo>
-        )}
+        {showNavIconSection && this.renderMenuSection()}
       </HeaderMainContainer>
     )
   }

@@ -9,8 +9,7 @@ const CardMaiContainer = styled.div`
   min-width: 100%;
   @media screen and (min-width: 768px) {
     margin-right: 20px;
-    width: 380px;
-    min-width: ${props => (props.cart ? 1000 : 380)}px;
+    min-width: ${props => (props.cart ? '' : 380)}px;
     max-width: ${props => (props.cart ? 1000 : 380)}px;
   }
 `
@@ -39,7 +38,6 @@ const DetailsContainers = styled.div`
     align-items: center;
     width: 100%;
     justify-content: ${props => props.cart && 'space-between'};
-    padding-right: ${props => props.cart && 110}px;
   }
 `
 
@@ -57,10 +55,15 @@ const CardName = styled.p`
   margin-bottom: 4px;
   @media screen and (min-width: 768px) {
     font-size: 18px;
+    width: ${props => (props.cart ? 180 : '')}px;
   }
 `
 
 const PriceText = styled.p`
+  display: flex;
+  align-items: center;
+
+  order: 1;
   color: #334155;
   font-family: 'DM Sans';
   font-style: normal;
@@ -70,6 +73,7 @@ const PriceText = styled.p`
   margin: 0px;
 
   @media screen and (min-width: 768px) {
+    justify-content: ${props => (props.cart ? 'flex-end' : '')}px;
     font-size: 18px;
   }
 `
@@ -83,7 +87,6 @@ const RatingContainer = styled.div`
   font-size: 12px;
   line-height: 16px;
   margin: 8px 0px;
-  //   border: 2px solid red;
   @media screen and (min-width: 768px) {
     display: ${props => props.cart && 'none'};
   }
@@ -91,7 +94,6 @@ const RatingContainer = styled.div`
 
 const Icon = styled(AiFillStar)`
   color: #ffcc00;
-
   margin-right: 4px;
 `
 

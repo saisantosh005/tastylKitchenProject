@@ -139,7 +139,7 @@ class SpecificRoute extends Component {
           {cuisine && <PriceText>{cuisine}</PriceText>}
           {ratingCount && <PriceText>{ratingCount}</PriceText>}
           <RatingAndPriceContainer>
-            <RatingContainer one="true">
+            <RatingContainer one>
               <RatingText>
                 <Icon />
                 {rating}
@@ -212,7 +212,7 @@ class SpecificRoute extends Component {
           }
           return (
             <SpecificRouteMainContainer>
-              <Header home="true" />
+              <Header home />
               <BannerAndListContainer>
                 {this.renderBannerAndItemsList(
                   onAddClick,

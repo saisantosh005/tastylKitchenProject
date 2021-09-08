@@ -41,7 +41,7 @@ class Home extends Component {
     restaurantsList: [],
     total: 0,
     offsetCount: 0,
-    sort: '',
+    sort: 'Highest',
   }
 
   componentDidMount() {
@@ -78,10 +78,10 @@ class Home extends Component {
     this.setState({
       apiTwoStatus: apiConstants.inProgress,
     })
-    const {offsetCount} = this.state
+    const {offsetCount, sort} = this.state
     const offset = offsetCount * 10
     const limit = 10
-    const url = `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${limit}`
+    const url = `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${limit}&sort_by_rating=${sort}`
 
     const jwtToken = Cookies.get('jwtToken')
     const options = {
@@ -132,7 +132,14 @@ class Home extends Component {
     }
   }
 
-  sortProducts = () => {}
+  sortProducts = event => {
+    this.setState(
+      {
+        sort: event.target.value,
+      },
+      this.getPopularRestaurantsList,
+    )
+  }
 
   renderCardList = () => {
     const {restaurantsList} = this.state
@@ -150,7 +157,7 @@ class Home extends Component {
   )
 
   renderDetailsSection = () => {
-    const {apiTwoStatus, restaurantsList, offsetCount, total} = this.state
+    const {apiTwoStatus, restaurantsList, offsetCount, total, sort} = this.state
     switch (apiTwoStatus) {
       case apiConstants.success:
         return (
@@ -165,9 +172,9 @@ class Home extends Component {
               </DetailsContainer>
               <SortContainer>
                 <MdSort />
-                <Select onChange={this.sortProducts}>
-                  <Option value="lowest">Lowest </Option>
-                  <Option value="highest">Highest</Option>
+                <Select value={sort} onChange={this.sortProducts}>
+                  <Option value="Lowest">Lowest </Option>
+                  <Option value="Highest">Highest</Option>
                 </Select>
               </SortContainer>
             </DetailsAndSortContainer>
