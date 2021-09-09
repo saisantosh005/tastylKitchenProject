@@ -25,6 +25,7 @@ const Image = styled.img`
   height: 100px;
   margin-right: 16px;
   border-radius: 8px;
+  object-fit: cover;
 
   @media screen and (min-width: 768px) {
     height: 100px;

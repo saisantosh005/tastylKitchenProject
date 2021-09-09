@@ -9,6 +9,7 @@ const HomeMainContainer = styled.div`
 const BannerSectionContainer = styled.div`
   align-self: center;
   width: 100%;
+
   margin: 10px;
   text-align: ${props => (props.spin ? 'center' : 'none')};
 
