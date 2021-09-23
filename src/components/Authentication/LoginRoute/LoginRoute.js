@@ -103,6 +103,12 @@ class LoginRoute extends Component {
       <LoginRouteMainContainer>
         <LoginFormSection>{this.renderLoginForm()}</LoginFormSection>
         <Image
+          one
+          src="https://res.cloudinary.com/delguky36/image/upload/v1632377835/Rectangle_1457_lmqtr5.png"
+          alt=""
+        />
+        <Image
+          two
           src="https://res.cloudinary.com/delguky36/image/upload/v1630816541/Rectangle_1456_1_hfd0ty.png"
           alt=""
         />

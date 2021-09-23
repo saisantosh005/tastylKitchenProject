@@ -5,7 +5,6 @@ const LoginRouteMainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  padding-bottom: 48px;
   @media screen and (min-width: 658px) {
     flex-direction: row;
     justify-content: space-around;
@@ -28,7 +27,9 @@ const LoginFormMainContainer = styled.form`
   justify-content: space-between;
   width: 100%;
   border-radius: 8px;
-  padding: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
 
   @media screen and (min-width: 768px) {
     width: 90%;
@@ -115,20 +116,16 @@ const Button = styled.button`
 `
 
 const Image = styled.img`
+  display: ${props => (props.one ? 'flex' : 'none')};
   order: 0;
   display: absolute;
   align-self: flex-end;
-  width: 347px;
-  height: 320px;
-  border-bottom-left-radius: 190px;
-  border-bottom-right-radius: 160px;
-  border-top-left-radius: 150px;
   margin: 0px;
   @media screen and (min-width: 658px) {
+    display: ${props => (props.one ? 'none' : 'flex')};
     border-radius: 0px;
-    display: flex;
     width: 50%;
-    height: 100vh;
+    min-height: 100vh;
   }
 `
 
