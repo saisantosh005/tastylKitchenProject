@@ -49,7 +49,7 @@ class App extends Component {
     const {cartList} = this.state
     const updatedCart = cartList.map(eachItem => eachItem.id !== id)
     this.setState({
-      cartList: [...updatedCart],
+      cartList: [],
     })
   }
 
@@ -88,6 +88,7 @@ class App extends Component {
           onAddToCart: this.onAddToCart,
           onDecrement: this.onDecrementQuantity,
           onIncrement: this.onIncrementQuantity,
+          removeFromCart: this.removeFromCart,
         }}
       >
         <div>

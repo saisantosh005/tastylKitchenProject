@@ -39,13 +39,14 @@ class Cart extends Component {
       />
     ))
 
-  changeOrderStatus = () => {
+  changeOrderStatus = removeFromCart => {
+    removeFromCart()
     this.setState({
       orderStatus: 'success',
     })
   }
 
-  renderOrderSummary = cartList => {
+  renderOrderSummary = (cartList, removeFromCart) => {
     const priceList = cartList.map(
       eachItem => eachItem.price * eachItem.quantity,
     )
@@ -59,14 +60,17 @@ class Cart extends Component {
             {totalPrice}
           </OrderSummaryText>
         </TextContainer>
-        <Button type="button" onClick={this.changeOrderStatus}>
+        <Button
+          type="button"
+          onClick={() => this.changeOrderStatus(removeFromCart)}
+        >
           Place Order
         </Button>
       </OrderSummaryContainer>
     )
   }
 
-  renderCardDetails = (cartList, onIncrement, onDecrement) => {
+  renderCardDetails = (cartList, onIncrement, onDecrement, removeFromCart) => {
     const cartListLength = cartList.length
     if (cartListLength === 0) {
       return <SuccessOrNoOrderCard status="cart" />
@@ -77,7 +81,7 @@ class Cart extends Component {
           <CartListAndOrderSummaryContainer>
             <CartListContainer>
               {this.renderCardList(cartList, onIncrement, onDecrement)}
-              {this.renderOrderSummary(cartList)}
+              {this.renderOrderSummary(cartList, removeFromCart)}
             </CartListContainer>
           </CartListAndOrderSummaryContainer>
           <Footer />
@@ -106,7 +110,12 @@ class Cart extends Component {
               {orderStatus === 'success' ? (
                 <SuccessOrNoOrderCard status="success" />
               ) : (
-                this.renderCardDetails(cartList, onIncrement, onDecrement)
+                this.renderCardDetails(
+                  cartList,
+                  onIncrement,
+                  onDecrement,
+                  removeFromCart,
+                )
               )}
             </CartMainContainer>
           )
